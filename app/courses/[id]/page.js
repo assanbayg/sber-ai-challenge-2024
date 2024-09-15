@@ -1,15 +1,10 @@
+"use client";
+
 import Stars from "@/app/components/rating-stars";
 import { coursesData } from "@/app/data/courses-data";
 import { reviewsData } from "@/app/data/reviews-data";
 import Link from "next/link";
 import { BsArrowLeft } from "react-icons/bs";
-
-export async function generateStaticParams() {
-  // создаем статичной маршрут получая айдишку
-  return coursesData.map((course) => ({
-    id: course.id.toString(),
-  }));
-}
 
 export default function Course({ params }) {
   const { id } = params;
@@ -25,6 +20,27 @@ export default function Course({ params }) {
       </div>
     );
   }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(
+        "https://sber-ai-challenge-2024-backend.onrender.com/predict",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ review: reviews[0] }),
+        },
+      );
+
+      const data = await response.json();
+      alert(data);
+      console.log(data);
+    } catch (error) {}
+  };
 
   return (
     <div className="flex h-screen flex-col justify-center px-24">
@@ -50,6 +66,13 @@ export default function Course({ params }) {
       <p>
         <strong>Цена: </strong> {course.price}
       </p>
+      <button
+        type="button"
+        onClick={handleSubmit}
+        className="my-3 w-1/2 rounded-xl bg-blue-500 py-3 text-white shadow-sm hover:bg-blue-600"
+      >
+        Обновить отзывы (отправляет запрос модели)
+      </button>
       <p className="my-4 text-xl text-gray-800 md:text-2xl">Рейтинг и отзывы</p>
       <ul>
         {reviews.map((review) => (
