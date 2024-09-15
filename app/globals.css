@@ -25,3 +25,8 @@ body {
     text-wrap: balance;
   }
 }
+
+ul.list-disc li::marker {
+  color: #3b82f6;
+  font-size: 1.5em;
+}

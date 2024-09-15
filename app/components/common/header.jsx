@@ -27,7 +27,7 @@ export const Header = () => {
   return (
     <header
       className={`fixed w-full py-7 ${
-        isSticky ? "bg-white opacity-80" : "bg-transparent"
+        isSticky ? "bg-white/80" : "bg-transparent"
       } transition-colors duration-300`}
     >
       <div className="relative mx-auto flex h-12 w-3/4 items-center justify-between">
@@ -46,8 +46,8 @@ export const Header = () => {
           <Link href="/#courses" className="hover:underline">
             Курсы
           </Link>
-          <Link href="/#model" className="hover:underline">
-            Контакты{" "}
+          <Link href="/#faq" className="hover:underline">
+            FAQ
           </Link>
           <button className="rounded-xl bg-blue-500 px-6 py-3 text-white shadow-sm hover:bg-blue-600">
             Логин
@@ -58,7 +58,7 @@ export const Header = () => {
       {isMenuOpen && (
         <div className="fixed inset-0">
           <div
-            className="z-10 flex h-screen flex-col items-center justify-center space-y-4 bg-blue-200 p-6 text-3xl opacity-90"
+            className="z-10 flex h-screen flex-col items-center justify-center space-y-4 bg-blue-200/90 p-6 text-3xl"
             onClick={(e) => {
               toggleMenu();
             }}
@@ -69,8 +69,8 @@ export const Header = () => {
             <Link href="/#courses" onClick={toggleMenu}>
               Курсы
             </Link>
-            <Link href="/#model" onClick={toggleMenu}>
-              Контакты
+            <Link href="/#faq" onClick={toggleMenu}>
+              FAQ
             </Link>
             <button className="rounded-xl bg-blue-500 px-6 py-3 text-white shadow-sm hover:bg-blue-600">
               Логин

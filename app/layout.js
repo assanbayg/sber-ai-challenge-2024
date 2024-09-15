@@ -2,7 +2,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { Header } from "./components/common/header";
 import { Footer } from "./components/common/footer";
-
+import { Analytics } from "@vercel/analytics/react";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -28,6 +28,7 @@ export default function RootLayout({ children }) {
         <Header />
         {children}
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
