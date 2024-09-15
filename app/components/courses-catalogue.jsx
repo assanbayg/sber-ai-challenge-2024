@@ -10,6 +10,7 @@ import {
 } from "react-icons/bs";
 import { useState, useMemo } from "react";
 import { coursesData } from "../data/courses-data";
+import { useRouter } from "next/navigation";
 
 export const CoursesCatalogue = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -39,7 +40,7 @@ export const CoursesCatalogue = () => {
       });
   }, [searchTerm, ratingFilter, priceFilter, sortOrder]);
 
-  // Pagination logic
+  // логика пагинации
   const indexOfLastCourse = currentPage * coursesPerPage;
   const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
   const currentCourses = filteredCourses.slice(
@@ -52,6 +53,12 @@ export const CoursesCatalogue = () => {
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage);
     }
+  };
+
+  const router = useRouter();
+
+  const handleClick = (id) => {
+    router.push("/courses/" + id); // Navigate to a specific blog post
   };
 
   return (
@@ -69,7 +76,7 @@ export const CoursesCatalogue = () => {
         </div>
       </div>
 
-      {/* Sorting and View Mode Toggle */}
+      {/* сортировка и отображение сектой и листом */}
       <div className="mb-4 flex w-full max-w-4xl justify-between">
         <div className="flex items-center">
           <select
@@ -94,7 +101,7 @@ export const CoursesCatalogue = () => {
         </div>
       </div>
 
-      {/* Filters */}
+      {/* фильтры */}
       <div className="mb-6 flex w-full items-center gap-x-4">
         <BsFilter />
         <div className="flex items-center">
@@ -128,6 +135,7 @@ export const CoursesCatalogue = () => {
         {currentCourses.map((course) => (
           <div
             key={course.id}
+            onClick={() => handleClick(course.id)}
             className={`${isGridView ? "w-96" : "w-full"} rounded-3xl border-2 border-gray-300 bg-white p-4 shadow-md`}
           >
             <h3 className="mb-2 text-xl font-bold">{course.title}</h3>
@@ -136,7 +144,7 @@ export const CoursesCatalogue = () => {
           </div>
         ))}
       </div>
-
+      {/* пагинация */}
       <div className="flex w-full max-w-4xl items-center justify-center">
         <button
           className={currentPage === 1 ? "hidden" : "mr-2"}
